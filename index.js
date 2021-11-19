@@ -1,12 +1,11 @@
-//team members
-const Employee = require('../lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern')
 
-//node modules
 const fs = require('fs');
 const inquirer = require('inquirer');
 const jest = require('jest');
 
-//team
 const teamArray = [];
 
 const addEmployee = () => {
@@ -49,6 +48,41 @@ const addEmployee = () => {
             name: 'school',
             message: "What school did the intern attend?",
             when: (input) => input.role === 'Intern'
+        },
+        {
+            type: 'confirm',
+            name: 'confirmNewEmployee',
+            message: "Add new employee?",
+            default: false
         }
     ])
-}
+    .then(employeeData => {
+        let {name, id, email, role, office, github, school, confirmNewEmployee} = employeeData;
+        let employee;
+
+        if (role === 'Manager') {
+            employee = new Manager (name, id, email, office);
+            console.log(employee);
+        } else if (role === 'Engineer') {
+            employee = new Engineer (name, id, email, github);
+            console.log(employee);
+        } else if (role === 'Intern') {
+            employee = new Intern (name, id, email, school);
+            console.log(employee);
+        }
+
+        teamArray.push(employee);
+
+        if (confirmNewEmployee) {
+            return addEmployee(teamArray);
+        } else {
+            return teamArray;
+        }
+    })
+};
+
+addEmployee()
+    .then(console.log(teamArray))
+    .catch(err => {
+        console.log(err);
+    });
