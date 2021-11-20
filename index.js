@@ -2,6 +2,8 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern')
 
+const generateHTML = require('./src/generateHTML');
+
 const fs = require('fs');
 const inquirer = require('inquirer');
 const jest = require('jest');
@@ -62,13 +64,12 @@ const addEmployee = () => {
 
         if (role === 'Manager') {
             employee = new Manager (name, id, email, office);
-            console.log(employee);
+
         } else if (role === 'Engineer') {
             employee = new Engineer (name, id, email, github);
-            console.log(employee);
+
         } else if (role === 'Intern') {
             employee = new Intern (name, id, email, school);
-            console.log(employee);
         }
 
         teamArray.push(employee);
@@ -76,13 +77,19 @@ const addEmployee = () => {
         if (confirmNewEmployee) {
             return addEmployee(teamArray);
         } else {
+            console.log(teamArray)
             return teamArray;
         }
     })
 };
 
 addEmployee()
-    .then(console.log(teamArray))
+    .then(teamArray => {
+        return generateHTML(teamArray);
+    })
+    then(pageHTML => {
+        return writeFile(pageHTML);
+    })
     .catch(err => {
         console.log(err);
     });
