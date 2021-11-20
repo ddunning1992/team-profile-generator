@@ -1,0 +1,29 @@
+:root {
+    background-color: #e0e0e0;
+}
+
+body {
+    font-family: Monospace;
+    background-color: #e0e0e0
+}
+
+header {
+    padding-left: 20px;
+}
+
+.container {
+    margin: 100px auto;
+    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    border: 2px solid black;
+}
+
+.card-title {
+    background-color: lightslategray;
+    margin-top: 0;
+}

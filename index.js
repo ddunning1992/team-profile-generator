@@ -83,11 +83,22 @@ const addEmployee = () => {
     })
 };
 
+const writeFile = data => {
+    fs.writeFile('./dist/index.html', data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log('Team profile created! The index.html file has been placed in your "dist" folder');
+        }
+    })
+}
+
 addEmployee()
     .then(teamArray => {
         return generateHTML(teamArray);
     })
-    then(pageHTML => {
+    .then(pageHTML => {
         return writeFile(pageHTML);
     })
     .catch(err => {
