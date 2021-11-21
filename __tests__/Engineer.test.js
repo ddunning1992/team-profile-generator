@@ -16,4 +16,4 @@ test('get employee github', () => {
     const engineer = new Engineer('name', 'id', 'email', 'github');
 
     expect(engineer.getGithub()).toEqual(expect.any(String));
-})
+});
